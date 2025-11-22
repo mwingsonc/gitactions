@@ -1,17 +1,24 @@
-name: Super-Linter
-
+name: Demo Workflow
 on: push
-
 jobs:
-  super-lint:
-    name: Lint code base
+  build-the-car:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Run Super-Linter
-        uses: github/super-linter@v4
-        env:
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build the car
+        run: |
+          mkdir build
+          cd build
+          touch car.txt
+          echo "chassis" >> car.txt
+          echo "engine" >> car.txt
+          echo "wheels" >> car.txt
+  test-the-car:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test the car
+        run: |
+          test -f build/car.txt
+          cd build
+          grep "chassis" car.txt
+          grep "engine" car.txt
+          grep "wheels" car.txt
